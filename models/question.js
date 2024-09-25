@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Questions.belongsTo(models.Regions, { foreignKey: 'region_id' });
+      Questions.belongsTo(models.Cycles, { foreignKey: 'region_id' });
     }
   }
   Questions.init({

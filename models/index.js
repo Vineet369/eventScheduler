@@ -16,12 +16,18 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-const Regions = require('./region')(sequelize, Sequelize.DataTypes); // <-- Correct import here
+const Users = require('./user')(sequelize, Sequelize.DataTypes); 
 
-const Questions = require('./question')(sequelize, Sequelize.DataTypes); // Same for Questions
+const Regions = require('./region')(sequelize, Sequelize.DataTypes); 
 
+const Questions = require('./question')(sequelize, Sequelize.DataTypes); 
+
+const Cycles = require('./cycle')(sequelize, Sequelize.DataTypes); 
+
+db.Users = Users; // <-- Exporting the Regions model
 db.Regions = Regions; // <-- Exporting the Regions model
 db.Questions = Questions;
+db.Cycles = Cycles;
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

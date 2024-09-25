@@ -19,26 +19,26 @@ const calculateCurrentCycle = (startDate, cycleDurationDays) => {
 exports.getCurrentQuestion = async (req, res) => {
   try {
     const { regionId } = req.params;
-    console.log(regionId)
+    // console.log(regionId)
     
     // Find the region based on the region ID
     const region = await Regions.findByPk(regionId);
-    console.log(region)
+    // console.log(region)
     if (!region) {
       return res.status(404).json({ error: 'Region not found' });
     }
 
     const cycleDurationDays = 7; // Default cycle duration (can be dynamic)
-    const startDate = moment.tz('2024-09-01 19:00', region.time_zone);  // Start date for the cycle
+    const startDate = moment.tz('2024-09-14 19:00', region.time_zone);  // Start date for the cycle
     
     // Calculate the current cycle based on the region's time zone
     const currentCycle = calculateCurrentCycle(startDate, cycleDurationDays);
-    console.log(currentCycle + "currentCycle")
+    // console.log(currentCycle + "currentCycle")
 
     // Find the corresponding question for the current cycle in the region
     const question = await Questions.findOne({
       where: {
-        cycle: currentCycle,
+        cycle: currentCycle, 
         region_id: region.id,
       },
     });
