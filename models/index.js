@@ -24,8 +24,8 @@ const Questions = require('./question')(sequelize, Sequelize.DataTypes);
 
 const Cycles = require('./cycle')(sequelize, Sequelize.DataTypes); 
 
-db.Users = Users; // <-- Exporting the Regions model
-db.Regions = Regions; // <-- Exporting the Regions model
+db.Users = Users; 
+db.Regions = Regions; 
 db.Questions = Questions;
 db.Cycles = Cycles;
 

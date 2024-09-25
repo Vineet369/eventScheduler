@@ -1,5 +1,4 @@
-// controllers/regionController.js
-const { Regions, Questions } = require('../models'); // Assuming you have defined models for Region and Question
+const { Regions, Questions, Cycles } = require('../models'); 
 const moment = require('moment-timezone');
 
 // Helper to calculate the current cycle based on time and duration
@@ -13,29 +12,34 @@ const calculateCurrentCycle = (startDate, cycleDurationDays) => {
   const cycle = Math.floor(diff / cycleDurationDays);   // Get the complete cycles
 
   console.log({now, diff, cycle})
-  return cycle + 1;  // Return the current cycle (starts from 1)
+  return cycle + 1;  
 };
 
 exports.getCurrentQuestion = async (req, res) => {
   try {
     const { regionId } = req.params;
     // console.log(regionId)
-    
-    // Find the region based on the region ID
     const region = await Regions.findByPk(regionId);
-    // console.log(region)
     if (!region) {
       return res.status(404).json({ error: 'Region not found' });
     }
-
-    const cycleDurationDays = 7; // Default cycle duration (can be dynamic)
-    const startDate = moment.tz('2024-09-14 19:00', region.time_zone);  // Start date for the cycle
     
-    // Calculate the current cycle based on the region's time zone
-    const currentCycle = calculateCurrentCycle(startDate, cycleDurationDays);
-    // console.log(currentCycle + "currentCycle")
+    const cycle = await Cycles.findOne({
+      where: {
+        region_id: region.id,
+      },
+    });
 
-    // Find the corresponding question for the current cycle in the region
+    if (!cycle) {
+      return res.status(404).json({ error: 'cycle duratin not found' });
+    }
+
+
+    const cycleDurationDays = cycle.cycle_span; 
+    const startDate = moment.tz('2024-09-14 19:00', region.time_zone);  
+    
+    const currentCycle = calculateCurrentCycle(startDate, cycleDurationDays);
+
     const question = await Questions.findOne({
       where: {
         cycle: currentCycle, 

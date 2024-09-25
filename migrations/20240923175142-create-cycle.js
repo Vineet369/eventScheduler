@@ -15,6 +15,11 @@ module.exports = {
       end_date: {
         type: Sequelize.DATE
       },
+      cycle_span: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 7, // Default cycle span of 7 days
+      },
       region_id: {
         type: Sequelize.INTEGER
       },

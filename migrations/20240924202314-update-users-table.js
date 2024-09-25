@@ -23,11 +23,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Regions',  // References the Regions table
+          model: 'Regions',  
           key: 'id'
         },
-        onDelete: 'CASCADE',  // If a region is deleted, also delete its users
-        onUpdate: 'CASCADE'   // If region_id is updated, update the user's region_id
+        onDelete: 'CASCADE',  
+        onUpdate: 'CASCADE'   
       },
       createdAt: {
         allowNull: false,
