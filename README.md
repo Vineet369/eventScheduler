@@ -81,7 +81,7 @@ GET: /api/users/:userId
 response: 
 ```
 {
-    "id": 5,
+    "id": 2,
     "name": "Vineet",
     "email": "vineet123@gmail.com",
     "region_id": 3,
